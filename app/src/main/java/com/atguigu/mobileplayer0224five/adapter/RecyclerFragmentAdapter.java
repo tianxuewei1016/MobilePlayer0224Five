@@ -15,6 +15,7 @@ import com.atguigu.mobileplayer0224five.bean.NetAudioBean;
 import com.atguigu.mobileplayer0224five.utils.Constant;
 import com.atguigu.mobileplayer0224five.utils.Utils;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import org.xutils.x;
 
@@ -127,6 +128,9 @@ public class RecyclerFragmentAdapter extends RecyclerView.Adapter {
         if (itemViewType == TYPE_VIDEO) {
             VideoHoder videoHoder = (VideoHoder) holder;
             videoHoder.setData(datas.get(position));
+        } else if (itemViewType == TYPE_IMAGE) {
+            ImageHolder imageHolder = (ImageHolder) holder;
+            imageHolder.setData(datas.get(position));
         }
     }
 
@@ -255,32 +259,55 @@ public class RecyclerFragmentAdapter extends RecyclerView.Adapter {
 
         }
     }
-    class ImageHolder extends BaseViewHolder{
+
+    class ImageHolder extends BaseViewHolder {
+        TextView tvContext;
+        ImageView ivImageIcon;
 
         public ImageHolder(View convertView) {
             super(convertView);
+//中间公共部分 -所有的都有
+            tvContext = (TextView) convertView.findViewById(R.id.tv_context);
+            ivImageIcon = (ImageView) convertView.findViewById(R.id.iv_image_icon);
+        }
 
+        @Override
+        public void setData(NetAudioBean.ListBean mediaItem) {
+            super.setData(mediaItem);
+            //设置文本-所有的都有
+            tvContext.setText(mediaItem.getText() + "_" + mediaItem.getType());
+            //图片特有的
+
+            ivImageIcon.setImageResource(R.drawable.bg_item);
+            if (mediaItem.getImage() != null && mediaItem.getImage() != null && mediaItem.getImage().getThumbnail_small() != null) {
+                Glide.with(mContext).load(Constant.BASE_URL + mediaItem.getImage().getThumbnail_small().get(0)).
+                        placeholder(R.drawable.bg_item).
+                        error(R.drawable.bg_item).
+                        diskCacheStrategy(DiskCacheStrategy.ALL).
+                        into(ivImageIcon);
+            }
         }
     }
 
-    class TextHolder extends BaseViewHolder{
+    class TextHolder extends BaseViewHolder {
 
         public TextHolder(View convertView) {
             super(convertView);
         }
     }
 
-    class GifHolder extends BaseViewHolder{
+    class GifHolder extends BaseViewHolder {
 
         public GifHolder(View convertView) {
             super(convertView);
         }
     }
 
-    class ADHolder extends BaseViewHolder{
+    class ADHolder extends BaseViewHolder {
 
         public ADHolder(View convertView) {
             super(convertView);
         }
     }
 }
+
