@@ -131,6 +131,9 @@ public class RecyclerFragmentAdapter extends RecyclerView.Adapter {
         } else if (itemViewType == TYPE_IMAGE) {
             ImageHolder imageHolder = (ImageHolder) holder;
             imageHolder.setData(datas.get(position));
+        }else if(itemViewType == TYPE_TEXT) {
+            TextHolder textHolder = (TextHolder) holder;
+            textHolder.setData(datas.get(position));
         }
     }
 
@@ -290,9 +293,16 @@ public class RecyclerFragmentAdapter extends RecyclerView.Adapter {
     }
 
     class TextHolder extends BaseViewHolder {
-
+        TextView tvContext;
         public TextHolder(View convertView) {
             super(convertView);
+            tvContext = (TextView) convertView.findViewById(R.id.tv_context);
+        }
+
+        @Override
+        public void setData(NetAudioBean.ListBean mediaItem) {
+            super.setData(mediaItem);
+            tvContext.setText(mediaItem.getText() + "_" + mediaItem.getType());
         }
     }
 
