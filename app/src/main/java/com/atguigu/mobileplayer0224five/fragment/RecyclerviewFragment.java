@@ -43,7 +43,7 @@ public class RecyclerviewFragment extends BaseFragment {
     @Override
     public View initView() {
         View view = View.inflate(mContext, R.layout.fragment_recyclerview, null);
-        ButterKnife.inject(this,view);
+        ButterKnife.inject(this, view);
         return view;
     }
 
@@ -83,14 +83,14 @@ public class RecyclerviewFragment extends BaseFragment {
     }
 
     private void processData(String json) {
-        NetAudioBean netAudioBean = new Gson().fromJson(json,NetAudioBean.class);
+        NetAudioBean netAudioBean = new Gson().fromJson(json, NetAudioBean.class);
         listDatas = netAudioBean.getList();
-        if(listDatas!=null&&listDatas.size()>0) {
+        if (listDatas != null && listDatas.size() > 0) {
             tvNomedia.setVisibility(View.GONE);
             myAdapter = new RecyclerFragmentAdapter(mContext, listDatas);
             recyclerview.setAdapter(myAdapter);
             recyclerview.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
-        }else{
+        } else {
             tvNomedia.setVisibility(View.VISIBLE);
         }
         progressbar.setVisibility(View.GONE);

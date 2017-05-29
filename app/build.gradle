@@ -30,4 +30,6 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:25.1.0'
     compile 'org.xutils:xutils:3.5.0'
     compile 'com.google.code.gson:gson:2.2.4'
+    compile 'fm.jiecao:jiecaovideoplayer:4.8.3'
+    compile 'com.github.bumptech.glide:glide:3.5.2'
 }
